@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>FreshKeeper - 유통기한 관리 웹앱</title>
+  <meta name="description" content="집에 있는 식품의 유통기한을 쉽게 등록하고 똑똑하게 관리하는 모바일 퍼스트 웹앱" />
+  <meta name="theme-color" content="#10B981" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- 앱 상단 헤더 -->
+    <header class="app-header">
+      <div class="brand-logo" id="header-logo-btn">
+        <span class="logo-icon">🥑</span>
+        <span class="logo-text">FreshKeeper</span>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="notif-bell-btn" title="알림 목록" aria-label="알림 목록">
+          🔔
+          <span class="notification-badge hidden" id="notif-bell-badge">0</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- 메인 콘텐츠 영역 (동적 탭 렌더링) -->
+    <main id="app-main" class="app-main">
+      <!-- 탭 화면들이 자바스크립트로 렌더링됩니다 -->
+    </main>
+
+    <!-- 하단 모바일 내비게이션 바 (6대 탭: 홈, 목록, 추가, 임박, 통계, 설정) -->
+    <nav class="app-nav" id="app-bottom-nav">
+      <button class="nav-item active" data-tab="home" title="홈">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">홈</span>
+      </button>
+      <button class="nav-item" data-tab="list" title="식품 목록">
+        <span class="nav-icon">📋</span>
+        <span class="nav-label">목록</span>
+      </button>
+      <button class="nav-item" data-tab="add" title="식품 추가">
+        <span class="nav-icon">➕</span>
+        <span class="nav-label">추가</span>
+      </button>
+      <button class="nav-item" data-tab="urgent" title="유통기한 임박">
+        <span class="nav-icon">⚠️</span>
+        <span class="nav-label">임박</span>
+        <span class="nav-badge hidden" id="nav-urgent-badge">0</span>
+      </button>
+      <button class="nav-item" data-tab="stats" title="통계">
+        <span class="nav-icon">📊</span>
+        <span class="nav-label">통계</span>
+      </button>
+      <button class="nav-item" data-tab="settings" title="설정">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-label">설정</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- 알림 센터 모달 -->
+  <div class="modal-overlay" id="notif-modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>🔔 유통기한 알림 센터</h3>
+        <button class="modal-close-btn" id="notif-modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body" id="notif-modal-content">
+        <!-- 알림 내역 동적 렌더링 -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm" id="notif-mark-read-btn">모두 확인 완료</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 식품 삭제 사유 선택 모달 (통계 정확도: 유통기한 경과 폐기 vs 소진) -->
+  <div class="modal-overlay" id="delete-modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>식품 삭제 확인</h3>
+        <button class="modal-close-btn" id="delete-modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="delete-choice-guide" id="delete-modal-item-name">
+          선택한 식품을 어떻게 처리하셨나요?
+        </p>
+        <div class="delete-choice-buttons">
+          <button class="btn-choice" id="delete-as-consumed-btn">
+            <span class="btn-choice-icon">😋</span>
+            <div>
+              <span class="btn-choice-title">맛있게 다 먹었어요 (알뜰 소진)</span>
+              <span class="btn-choice-desc">유통기한 내 정상 소비하여 목록에서 제외합니다</span>
+            </div>
+          </button>
+          <button class="btn-choice" id="delete-as-expired-btn">
+            <span class="btn-choice-icon">🗑️</span>
+            <div>
+              <span class="btn-choice-title">유통기한이 지나서 폐기해요</span>
+              <span class="btn-choice-desc">폐기 통계로 누적되어 향후 식단 관리에 반영됩니다</span>
+            </div>
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm" id="delete-cancel-btn">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 토스트 알림 컨테이너 -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- 메인 애플리케이션 스크립트: file:// 및 http:// 환경 모두에서 100% 동작하는 번들 스크립트 -->
+  <script src="js/bundle.js"></script>
+</body>
+</html>
